@@ -7,7 +7,8 @@ on:
         required: true
         default: '0.2.0'
 permissions:
-  contents: read
+  # GitHub hides draft releases from tokens with only read access.
+  contents: write
   packages: read
 jobs:
   install:
