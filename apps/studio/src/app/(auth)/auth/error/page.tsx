@@ -1,0 +1,2 @@
+import { Alert, Card } from "@/components/ui";
+export default function Page() { return <Card><h1 className="mb-3 text-2xl font-bold">Account action interrupted</h1><Alert tone="error">The link may be incomplete, expired or already used. Your existing account has not been removed.</Alert><a className="mt-4 block text-red underline" href="/forgot-password">Request a password reset</a><a className="mt-3 block text-red underline" href="/verify-email">Request email verification</a><a className="mt-3 block text-red underline" href="/login">Back to sign in</a></Card>; }

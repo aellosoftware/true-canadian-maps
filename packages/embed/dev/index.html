@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Embed test page</title>
+  <style>body{font-family:system-ui;margin:0;padding:24px;max-width:960px} .card{border:1px solid #ddd;border-radius:8px;padding:16px;margin-bottom:24px} #fixed{height:360px}</style>
+</head>
+<body>
+  <h1>Customer site (different origin)</h1>
+  <p>This page is served from a different origin than the studio/API/maps to exercise CORS, the origin-restricted key and the self-describing loader.</p>
+
+  <div class="card">
+    <h2>1. Script tag auto-mount (auto height, list below)</h2>
+    <div id="auto" data-tcm-map data-project="__PROJECT__" data-key="__KEY__" data-locale="en-CA"></div>
+  </div>
+
+  <div class="card">
+    <h2>2. Fixed-height container, French, list in a custom target</h2>
+    <div id="fixed" data-tcm-map data-project="__PROJECT__" data-key="__KEY__" data-locale="fr-CA" data-list="#fixed-list" data-fit="true"></div>
+    <div id="fixed-list"></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Programmatic (window.TCM.createMap)</h2>
+    <div id="prog" style="height:300px"></div>
+    <pre id="events" aria-live="polite"></pre>
+  </div>
+
+  <script src="__MAPS__/embed/v1.js" defer></script>
+  <script>
+    document.addEventListener("tcm:loaded", async () => {
+      const log = (m) => { document.getElementById("events").textContent += m + "\n"; };
+      const map = await window.TCM.createMap({ container: "prog", projectId: "__PROJECT__", publicKey: "__KEY__", list: "none" });
+      map.on("location:selected", (e) => log("selected " + e.locationId + " via " + e.source));
+      map.on("viewport:change", (e) => log("zoom " + e.zoom.toFixed(1)));
+      log("ready release " + map.release.id);
+      window.__progMap = map;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Self-host and downloads | True Canadian Maps</title>
+  <meta name="description" content="Run the True Canadian Maps preview on your own Linux x64 infrastructure. Versioned containers, source code and installation instructions.">
+  <link rel="canonical" href="https://truecanadianmaps.com/downloads.html">
+  <link rel="stylesheet" href="/styles.css?v=TCM_ASSET_REVISION">
+  <link rel="icon" href="/favicon.ico">
+</head>
+<body>
+  <a class="skip-link" href="#main" tabindex="0">Skip to main content</a>
+  <main class="section policy" id="main">
+    <div class="container narrow">
+      <a class="text-link" href="/">&larr; True Canadian Maps</a>
+      <p class="eyebrow download-eyebrow">Linux x64 · version 0.2.0 preview</p>
+      <h1>Your maps.<br>Your infrastructure.</h1>
+      <p class="hero-lede">Run Studio, publishing and public map delivery on your own server. You choose where the data lives and manage updates, backups and access.</p>
+      <div class="download-actions">
+        <a class="button" href="https://github.com/aellosoftware/true-canadian-maps/releases/download/v0.2.0/true-canadian-maps-0.2.0-linux-x64.tar.gz">Download Linux x64 installer</a>
+        <a class="text-link" href="https://github.com/aellosoftware/true-canadian-maps/releases/tag/v0.2.0">Release notes and checksums</a>
+      </div>
+      <h2>Before you install</h2>
+      <p>You need a Linux x64 server, Docker Engine with Compose, a domain and internet access. Start with 4 CPU cores, 8 GB RAM and 40 GB free disk; detailed basemap extracts and retained releases can require considerably more storage.</p>
+      <p>The installer starts privately, prepares the database and basemap, and lets you create the first administrator before exposing Studio. Public map files remain public. Origin restrictions do not make them confidential.</p>
+      <p><a class="text-link" href="https://github.com/aellosoftware/true-canadian-maps/blob/main/docs/SELF_HOSTING.md">Installation guide</a> · <a class="text-link" href="https://github.com/aellosoftware/true-canadian-maps/blob/main/docs/UPGRADING.md">Backups, upgrades and rollback</a></p>
+      <p>This preview supports Linux x64 with an internet-connected installation. ARM64 and disconnected installation have not been verified. Configure your own SMTP provider before enabling password recovery.</p>
+      <h2>Source and licences</h2>
+      <p>Studio and the server are licensed under AGPL-3.0-only. The independent browser SDK is MIT licensed. Third-party licences and map attribution still apply.</p>
+      <p><a class="text-link" href="https://github.com/aellosoftware/true-canadian-maps">Browse the source</a> · <a class="text-link" href="/source/TCM_ASSET_REVISION.tar.gz">Source for this deployed revision</a> · <a class="text-link" href="/third-party-notices.txt">Third-party notices</a></p>
+      <h2>Embed a published map</h2>
+      <p>Studio supplies a ready-to-use script embed when you publish. Developers can also build the standalone <a href="https://github.com/aellosoftware/true-canadian-maps/tree/main/packages/embed">MIT browser SDK from source</a>. A public npm package is not available yet.</p>
+      <h2>Prefer managed hosting?</h2>
+      <p><a class="text-link" href="https://studio.truecanadianmaps.com/signup">Try the Studio</a> in our managed founding preview. The managed service currently operates in Boston, Massachusetts, United States.</p>
+      <p class="preview-notice">An Aello Software product. <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Preview terms</a> · <a href="mailto:security@aellosoftware.com">Report a security issue</a></p>
+    </div>
+  </main>
+</body>
+</html>

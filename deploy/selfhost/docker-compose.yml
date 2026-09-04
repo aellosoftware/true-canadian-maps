@@ -1,0 +1,115 @@
+# Self-hosted Linux x64 preview. Configure, start privately, create admin, expose.
+#   ./install.sh configure && ./install.sh start
+# Profiles: edge (Caddy with automatic HTTPS) · basemap (one-shot Canada extract)
+name: tcm
+services:
+  db:
+    image: postgis/postgis:17-3.5
+    restart: unless-stopped
+    environment: { POSTGRES_DB: tcm, POSTGRES_USER: tcm, POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?run ./install.sh}" }
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U tcm -d tcm"], interval: 10s, timeout: 5s, retries: 10 }
+
+  migrate:
+    image: ${TCM_IMAGE_WORKER:-ghcr.io/aellosoftware/true-canadian-maps-worker}:${TCM_VERSION:?pin a released version}
+    command: ["node", "dist/migrate.js"]
+    environment: &env
+      DATABASE_URL: postgres://tcm:${POSTGRES_PASSWORD}@db:5432/tcm
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?run ./install.sh}
+      PUBLIC_STUDIO_URL: ${PUBLIC_STUDIO_URL:?}
+      PUBLIC_API_URL: ${PUBLIC_API_URL:?}
+      PUBLIC_MAPS_URL: ${PUBLIC_MAPS_URL:?}
+      COOKIE_DOMAIN: ${COOKIE_DOMAIN:-}
+      ALLOW_SIGNUP: ${ALLOW_SIGNUP:-false}
+      REQUIRE_EMAIL_VERIFICATION: ${REQUIRE_EMAIL_VERIFICATION:-false}
+      PASSWORD_RECOVERY_ENABLED: ${PASSWORD_RECOVERY_ENABLED:-false}
+      TCM_EDITION: selfhosted
+      TCM_VERSION: ${TCM_VERSION:?pin a released version}
+      ARTIFACT_STORE: fs
+      ARTIFACT_FS_ROOT: /srv/artifacts
+      BASEMAP_URL: ${BASEMAP_URL:-}
+      SMTP_URL: ${SMTP_URL:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    depends_on: { db: { condition: service_healthy } }
+    restart: "no"
+
+  seed:
+    image: ${TCM_IMAGE_WORKER:-ghcr.io/aellosoftware/true-canadian-maps-worker}:${TCM_VERSION:?pin a released version}
+    command: ["node", "dist/cli.js", "seed", "presets"]
+    environment: *env
+    depends_on: { migrate: { condition: service_completed_successfully } }
+    restart: "no"
+
+  app:
+    image: ${TCM_IMAGE_APP:-ghcr.io/aellosoftware/true-canadian-maps-app}:${TCM_VERSION:?pin a released version}
+    restart: unless-stopped
+    environment: *env
+    volumes: [artifacts:/srv/artifacts]
+    expose: ["3000"]
+    ports: ["127.0.0.1:${APP_PORT:-3000}:3000"]
+    depends_on: { seed: { condition: service_completed_successfully } }
+
+  worker:
+    image: ${TCM_IMAGE_WORKER:-ghcr.io/aellosoftware/true-canadian-maps-worker}:${TCM_VERSION:?pin a released version}
+    restart: unless-stopped
+    environment: *env
+    volumes: [artifacts:/srv/artifacts]
+    depends_on: { seed: { condition: service_completed_successfully } }
+
+  delivery:
+    image: ${TCM_IMAGE_DELIVERY:-ghcr.io/aellosoftware/true-canadian-maps-delivery}:${TCM_VERSION:?pin a released version}
+    restart: unless-stopped
+    environment: { PUBLIC_API_URL: "${PUBLIC_API_URL}" }
+    volumes:
+      - artifacts:/srv/delivery:rw
+      - basemap:/srv/delivery/base:ro
+      - assets:/srv/delivery/fonts:ro
+      - assets-sprites:/srv/delivery/sprites:ro
+    expose: ["80"]
+    ports: ["127.0.0.1:${DELIVERY_PORT:-8081}:80"]
+
+  # --- optional: automatic HTTPS in front of app + delivery (single-host or multi-host, see Caddyfile)
+  edge:
+    image: caddy:2.10.2-alpine
+    profiles: [edge]
+    restart: unless-stopped
+    environment:
+      STUDIO_HOST: ${STUDIO_HOST:?}
+      MAPS_HOST: ${MAPS_HOST:-}
+      API_HOST: ${API_HOST:-}
+      ACME_EMAIL: ${ACME_EMAIL:-}
+    volumes:
+      - ${CADDY_CONFIG:-./Caddyfile}:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    ports: ["80:80", "443:443", "443:443/udp"]
+    depends_on: [app, delivery]
+
+  # --- optional one-shot: download fonts/sprites and extract a regional basemap into the volumes
+  basemap:
+    image: alpine:3.20
+    profiles: [basemap]
+    environment:
+      BBOX: ${BBOX:--141.01,41.67,-52.58,83.14}
+      REGION: ${REGION:-ca}
+      MAXZOOM: ${BASEMAP_MAXZOOM:-8}
+      BASEMAP_BUILD: ${BASEMAP_BUILD:-}
+      DATABASE_URL: postgres://tcm:${POSTGRES_PASSWORD}@db:5432/tcm
+    volumes:
+      - basemap:/out/base
+      - assets:/out/fonts
+      - assets-sprites:/out/sprites
+      - ./basemap-job.sh:/job.sh:ro
+    entrypoint: ["/bin/sh", "/job.sh"]
+    depends_on: { seed: { condition: service_completed_successfully } }
+    restart: "no"
+
+volumes:
+  pgdata:
+  artifacts:
+  basemap:
+  assets:
+  assets-sprites:
+  caddy-data:
+  caddy-config:

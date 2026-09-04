@@ -1,0 +1,24 @@
+*.sh text eol=lf
+truecanadianmaps-package/**/*.css text eol=lf
+truecanadianmaps-package/**/*.html text eol=lf
+truecanadianmaps-package/**/*.js text eol=lf
+truecanadianmaps-package/**/*.json text eol=lf
+truecanadianmaps-package/**/*.md text eol=lf
+truecanadianmaps-package/**/*.py text eol=lf
+truecanadianmaps-package/**/*.sha256 text eol=lf
+truecanadianmaps-package/**/*.svg text eol=lf
+truecanadianmaps-package/**/*.txt text eol=lf
+truecanadianmaps-package/**/*.webmanifest text eol=lf
+truecanadianmaps-package/**/*.xml text eol=lf
+truecanadianmaps-package/**/*.yaml text eol=lf
+truecanadianmaps-package/**/*.yml text eol=lf
+
+*.yml text eol=lf
+*.yaml text eol=lf
+Dockerfile text eol=lf
+*.mjs text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.html text eol=lf
+*.css text eol=lf

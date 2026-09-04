@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #102d3c;
+  --color-navy-deep: #0b2130;
+  --color-ink: #1a2f38;
+  --color-body: #2a3c44;
+  --color-muted: #5d7078;
+  --color-line: #d9e4e5;
+  --color-red: #e23b3b;
+  --color-red-dark: #c42f2f;
+  --color-aqua: #79c7c3;
+  --color-aqua-light: #c9efe9;
+  --color-ice: #f5fafa;
+  --color-sand: #f2e8d8;
+  --color-sage: #b7c8ad;
+  --color-pale-red: #fcedec;
+  --color-pale-navy: #eaf1f3;
+
+  --font-display: "Inter Display", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "DejaVu Sans Mono", SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  @apply bg-ice text-body font-body antialiased;
+}
+
+h1, h2, h3, h4 {
+  @apply font-display text-navy;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-aqua);
+  outline-offset: 2px;
+}
+
+/* marker popups (editor preview mirrors the embed) */
+.tcm-popup { font: 13px/1.4 var(--font-body); color: var(--color-body); max-width: 260px; }
+.tcm-popup-title { display: block; font-family: var(--font-display); font-weight: 700; color: var(--color-navy); margin-bottom: 4px; }
+.tcm-popup-image { display: block; width: 100%; border-radius: 6px; margin: 6px 0; }
+.tcm-popup-desc { margin: 0 0 6px; white-space: normal; }
+.tcm-popup-link { color: var(--color-red); font-weight: 600; text-decoration: underline; }
+.maplibregl-popup-content { border-radius: 8px; box-shadow: 0 6px 20px rgba(16, 45, 60, 0.18); padding: 10px 12px; }

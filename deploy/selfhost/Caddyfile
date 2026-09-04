@@ -1,0 +1,18 @@
+{
+  email {$ACME_EMAIL}
+}
+{$STUDIO_HOST} {
+  @maps path /maps/*
+  handle @maps {
+    uri strip_prefix /maps
+    reverse_proxy delivery:80
+  }
+  handle {
+    reverse_proxy app:3000
+  }
+  header {
+    Strict-Transport-Security "max-age=31536000"
+    X-Content-Type-Options nosniff
+    Referrer-Policy strict-origin-when-cross-origin
+  }
+}

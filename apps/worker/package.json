@@ -1,0 +1,39 @@
+{
+  "name": "@tcm/worker",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsup",
+    "test": "vitest run --passWithNoTests",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@resvg/resvg-wasm": "^2.6.2",
+    "@tcm/artifact-store": "workspace:*",
+    "@tcm/db": "workspace:*",
+    "@tcm/icons": "workspace:*",
+    "@tcm/shared": "workspace:*",
+    "@tcm/style-compiler": "workspace:*",
+    "fast-png": "^8.0.0",
+    "pg-boss": "^12.29.0",
+    "pino": "^9.7.0",
+    "potpack": "^2.1.0",
+    "zod": "^4.1.0",
+    "drizzle-orm": "^0.45.0",
+    "@aws-sdk/client-s3": "^3.900.0",
+    "@maplibre/maplibre-gl-style-spec": "^26.0.0",
+    "ulidx": "^2.4.0",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.0",
+    "tsup": "^8.5.0"
+  },
+  "license": "AGPL-3.0-only"
+}

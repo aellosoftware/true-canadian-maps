@@ -1,0 +1,9 @@
+{
+  email {$ACME_EMAIL}
+}
+{$STUDIO_HOST} {
+  reverse_proxy app:3000
+}
+{$MAPS_HOST} {
+  reverse_proxy delivery:80
+}

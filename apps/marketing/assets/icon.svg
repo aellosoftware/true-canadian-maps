@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">True Canadian Maps icon</title>
+  <desc id="desc">A compass needle over flowing contour lines inside a rounded map tile.</desc>
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="#102D3C"/>
+  <path d="M62 333 C129 282 171 369 238 320 C300 275 342 342 450 282" fill="none" stroke="#79C7C3" stroke-width="26" stroke-linecap="round" opacity="0.95"/>
+  <path d="M60 405 C136 350 185 432 259 382 C323 339 367 397 454 350" fill="none" stroke="#C9EFE9" stroke-width="18" stroke-linecap="round" opacity="0.74"/>
+  <path d="M58 258 C132 209 184 279 247 240 C315 198 363 250 454 207" fill="none" stroke="#356B78" stroke-width="16" stroke-linecap="round" opacity="0.88"/>
+  <path d="M256 66 L341 285 L256 245 L171 285 Z" fill="#E23B3B"/>
+  <path d="M256 245 L304 280 L256 444 L208 280 Z" fill="#F5FAFA"/>
+  <circle cx="256" cy="256" r="23" fill="#102D3C" stroke="#F5FAFA" stroke-width="10"/>
+</svg>

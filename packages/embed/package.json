@@ -1,0 +1,48 @@
+{
+  "name": "@truecanadianmaps/web",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "Embed script and JavaScript SDK for True Canadian Maps",
+  "main": "./dist/web.js",
+  "types": "./dist/web.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/web.d.ts",
+      "import": "./dist/web.js"
+    },
+    "./style.css": {
+      "types": "./dist/style.css.d.ts",
+      "default": "./dist/style.css"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.txt",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "size": "size-limit"
+  },
+  "dependencies": {
+    "maplibre-gl": "^6.6.0",
+    "pmtiles": "^4.5.0"
+  },
+  "devDependencies": {
+    "@size-limit/file": "^11.2.0",
+    "size-limit": "^11.2.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.0",
+    "vitest": "^4.1.0"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>True Canadian Maps | Maps on your terms</title>
+  <meta name="description" content="Create public location maps in the True Canadian Maps Studio, an Aello Software product. Managed founding preview with portable exports.">
+  <link rel="canonical" href="https://truecanadianmaps.com/">
+  <meta name="theme-color" content="#102D3C">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="True Canadian Maps | Maps on your terms">
+  <meta property="og:description" content="Style, add locations and publish public maps. An Aello Software founding preview.">
+  <meta property="og:url" content="https://truecanadianmaps.com/">
+  <meta property="og:image" content="https://truecanadianmaps.com/assets/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/assets/site.webmanifest">
+  <link rel="stylesheet" href="/assets/live-demo/maplibre-gl.css?v=TCM_ASSET_REVISION">
+  <link rel="stylesheet" href="/styles.css?v=TCM_ASSET_REVISION">
+  <script defer src="/script.js?v=TCM_ASSET_REVISION"></script>
+  <script defer src="/assets/live-demo/bootstrap.js?v=TCM_ASSET_REVISION"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "True Canadian Maps",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "url": "https://truecanadianmaps.com/",
+    "description": "An Aello Software product for styling and publishing public interactive maps."
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main" tabindex="0">Skip to main content</a>
+
+  <header class="site-header" data-header>
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="True Canadian Maps home">
+        <img src="/assets/logo.svg" alt="True Canadian Maps">
+      </a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-button>
+        <span class="sr-only">Open navigation</span>
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Primary" data-nav>
+        <a href="#product">Product</a>
+        <a href="#naming">Naming</a>
+        <a href="/downloads.html">Self-host</a>
+        <a href="https://studio.truecanadianmaps.com/gallery">Gallery</a>
+        <a href="https://studio.truecanadianmaps.com/login">Sign in</a>
+        <a class="button button-small" href="https://studio.truecanadianmaps.com/signup">Try the Studio</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">An Aello Software product · Founding preview</p>
+          <h1>Maps on <span>your terms.</span></h1>
+          <p class="hero-lede">Choose a style, add your locations and publish an interactive map. Start with our managed founding preview and take your work with you through portable exports.</p>
+          <div class="hero-actions">
+            <a class="button" href="https://studio.truecanadianmaps.com/signup">Try the Studio</a>
+            <a class="text-link" href="#pilot">Discuss a pilot <span aria-hidden="true">→</span></a>
+          </div>
+          <p class="preview-notice">Preview availability, usage limits and pricing may change. No permanent free plan or service levels are promised. <a href="/terms.html">Preview terms</a>.</p>
+          <ul class="proof-list" aria-label="Platform principles">
+            <li>Managed preview</li>
+            <li>Customer-controlled labels</li>
+            <li>Open-standard exports</li>
+          </ul>
+        </div>
+
+        <figure class="live-map-preview" data-live-demo>
+          <figcaption class="live-map-toolbar">
+            <div>
+              <span class="preview-kicker">Explore the possibilities</span>
+              <strong>A public city guide</strong>
+            </div>
+            <span class="status" data-map-status role="status" aria-live="polite"><span></span> Static preview</span>
+          </figcaption>
+
+          <div class="live-map-stage">
+            <img class="map-static-preview" src="/assets/live-demo/preview.png?v=TCM_ASSET_REVISION" alt="Static map of Ottawa, Montréal and Québec city centres">
+            <div class="live-map-canvas" data-live-map role="region" aria-label="Interactive map of Canadian city centres" aria-busy="false"></div>
+            <div class="map-instruction" aria-hidden="true">Drag to explore · use controls to zoom</div>
+            <div class="map-error" data-map-error hidden><p>The interactive map is unavailable. The preview and location list remain available.</p><button class="button button-small" type="button" data-map-retry>Retry interactive map</button></div>
+            <noscript><p class="map-error">Enable JavaScript to explore the interactive map.</p></noscript>
+          </div>
+
+          <div class="live-map-footer">
+            <div class="map-locations" aria-label="Map locations">
+              <button type="button" disabled data-map-location="ottawa"><span></span> Ottawa</button>
+              <button type="button" disabled data-map-location="montreal"><span></span> Montréal</button>
+              <button type="button" disabled data-map-location="quebec"><span></span> Québec</button>
+            </div>
+            <button class="map-reset" type="button" disabled data-map-reset aria-label="Show all locations">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7V3m0 0h4M4 3l4 4a8 8 0 1 1-2.2 8"/></svg>
+              Reset view
+            </button>
+          </div>
+
+          <div class="export-note">
+            <label for="demo-style">Try a style</label>
+            <select id="demo-style" data-map-style><option value="light">Light · English labels</option><option value="true-north">True North · étiquettes françaises</option><option value="sand-and-sage">Sand &amp; Sage · English labels</option></select>
+          </div>
+          <p class="map-readable">Public city centres: Ottawa (45.4215, −75.6972), Montréal (45.5019, −73.5673) and Québec (46.8139, −71.2080). Label examples use the names available in the basemap; translation coverage varies. Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>; basemap by <a href="https://protomaps.com">Protomaps</a>.</p>
+        </figure>
+      </div>
+    </section>
+
+    <section class="principles" aria-label="Core benefits">
+      <div class="container principles-grid">
+        <div><strong>No proprietary renderer lock-in</strong><span>Publish portable MapLibre styles.</span></div>
+        <div><strong>A clear hosting disclosure</strong><span>Managed preview hosted in the United States.</span></div>
+        <div><strong>Open standards</strong><span>Export your styles and published locations.</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="get-started">
+      <div class="container">
+        <div class="section-heading"><p class="eyebrow">Your first map</p><h2>From an idea to a published map.</h2><p>Choose a style → Add locations → Publish your map.</p></div>
+        <ol class="walkthrough-grid">
+          <li><a href="/assets/walkthrough/choose-style.png" aria-label="View full Studio screenshot: choose a style"><img src="/assets/walkthrough/choose-style.png?v=TCM_ASSET_REVISION" alt="Studio showing the True North preset, language choices and live map" width="1440" height="960" loading="lazy"></a><h3>1. Choose a style</h3><p>Start from a gallery style, then adjust colours and labels to suit your map.</p></li>
+          <li><a href="/assets/walkthrough/add-locations.png" aria-label="View full Studio screenshot: add locations"><img src="/assets/walkthrough/add-locations.png?v=TCM_ASSET_REVISION" alt="Studio with public city locations and the marker editor" width="1440" height="960" loading="lazy"></a><h3>2. Add locations</h3><p>Place a marker or import a CSV or GeoJSON file. Add the details visitors need.</p></li>
+          <li><a href="/assets/walkthrough/publish-map.png" aria-label="View full Studio screenshot: publish your map"><img src="/assets/walkthrough/publish-map.png?v=TCM_ASSET_REVISION" alt="Studio showing a successfully published map and release history" width="1440" height="960" loading="lazy"></a><h3>3. Publish your map</h3><p>Save your changes, publish a public release and copy the embed into your website.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="product">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">The platform</p>
+          <h2>A skin is not sovereignty.</h2>
+          <p>Style a shared basemap, add your own locations and publish versioned releases. Place-name approval workflows and authority profiles are planned; they are not available in this preview.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card feature-card-wide">
+            <div class="feature-number">01</div>
+            <h3>Style every meaningful layer</h3>
+            <p>Control colours, roads, water, boundaries, labels, fonts, icons and zoom behaviour in a visual studio built around open map standards.</p>
+            <div class="swatches" aria-label="Example colour palette">
+              <span style="--swatch:#102D3C"></span><span style="--swatch:#E23B3B"></span><span style="--swatch:#79C7C3"></span><span style="--swatch:#F2E8D8"></span><span style="--swatch:#B7C8AD"></span>
+            </div>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">02</div>
+            <h3>Roadmap: govern names, not just typography</h3>
+            <p>The founding program will shape authority profiles, review workflows and provenance for protected labels.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">03</div>
+            <h3>Publish immutable releases</h3>
+            <p>Promote a tested map to production, keep an audit trail and return to any earlier release without rebuilding it.</p>
+          </article>
+          <article class="feature-card">
+            <div class="feature-number">04</div>
+            <h3>Bring your brand to your website</h3>
+            <p>Embed published maps in your website, choose your colours and retain required data attribution. Custom delivery domains are a planned deployment option.</p>
+          </article>
+          <article class="feature-card feature-card-accent">
+            <div class="feature-number">05</div>
+            <h3>Roadmap: host the platform yourself</h3>
+            <p>A public Linux x64 self-hosting release is planned. Installation packages and public source downloads will appear here after release verification.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="naming">
+      <div class="container split-grid">
+        <div>
+          <p class="eyebrow eyebrow-light">Founding roadmap · Place-name governance</p>
+          <h2>Every important label should answer: “according to whom?”</h2>
+          <p>The planned governance layer will build policies from official authorities, language preferences and customer-approved exceptions, storing stable source identifiers instead of brittle text replacements.</p>
+          <ul class="check-list">
+            <li>English, French and multilingual name fields</li>
+            <li>Official, alternate, historical and editorial status</li>
+            <li>Human approval for protected names</li>
+            <li>Diff reports before every data release</li>
+            <li>Source and decision history visible to administrators</li>
+          </ul>
+        </div>
+        <div class="code-panel" aria-label="Illustrative planned naming policy">
+          <div class="code-title"><span></span><span></span><span></span><strong>name-policy.yml</strong></div>
+<pre><code><span class="code-muted"># Planned format; not a current Studio feature</span>
+feature_id: <span class="code-red">cgn:FAYLN</span>
+jurisdiction: CA
+status: official
+
+names:
+  en-CA: <span class="code-aqua">Lake Ontario</span>
+  fr-CA: <span class="code-aqua">Lac Ontario</span>
+
+source:
+  authority: CGNDB
+  record_id: FAYLN
+
+policy:
+  approval_required: true
+  fallback: hide</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="deployment">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Deployment</p>
+          <h2>Available today. Clear next steps.</h2>
+          <p>Choose our managed preview or run the Linux x64 preview on your own infrastructure. Dedicated environments remain under consideration.</p>
+        </div>
+        <div class="deployment-grid">
+          <article class="deployment-card featured">
+            <span class="card-label">Best starting point</span>
+            <h3>Managed hosting</h3>
+            <p>The managed founding preview currently operates from Boston, Massachusetts, United States.</p>
+            <ul><li>Studio and public embeds</li><li>Versioned publishing</li><li>Managed updates</li></ul>
+          </article>
+          <article class="deployment-card">
+            <span class="card-label">Planned · discuss a pilot</span>
+            <h3>Dedicated environment</h3>
+            <p>Dedicated infrastructure is under consideration for qualified pilots. Availability and requirements need to be agreed before use.</p>
+            <ul><li>Scope agreed per pilot</li><li>Enterprise identity not available</li><li>No service levels in preview</li></ul>
+          </article>
+          <article class="deployment-card">
+            <span class="card-label">Preview · Linux x64</span>
+            <h3>Customer hosted</h3>
+            <p>Run Studio and map delivery with public source, versioned containers and a complete installer. <a href="/downloads.html">Explore self-hosting</a>.</p>
+            <ul><li>Customer-managed infrastructure</li><li>Internet-connected installation</li><li>Other platforms unverified</li></ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section use-cases">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Initial markets</p>
+          <h2>Designed for organizations that cannot outsource context.</h2>
+        </div>
+        <div class="use-case-grid">
+          <article><span>Retail & distribution</span><h3>Locations and service territories</h3><p>Branded locators, facilities, dealers and regional coverage without a third-party visual identity.</p></article>
+          <article><span>Public sector</span><h3>Public information maps</h3><p>Publish accessible maps with documented data sources, bilingual labels and controlled release cycles.</p></article>
+          <article><span>Publishers & associations</span><h3>Editorial maps</h3><p>Carry a consistent visual style across stories, reports and interactive projects. Naming approval workflows are on the roadmap.</p></article>
+          <article><span>Public locations only</span><h3>Know what publishing means</h3><p>Published map content is public. Browser-origin restrictions control the standard embed; they do not make map files confidential. Do not publish sensitive or restricted data.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pilot-section" id="pilot">
+      <div class="container pilot-card">
+        <div>
+          <p class="eyebrow">Founding customer program</p>
+          <h2>Help shape independent mapping infrastructure built for customer control.</h2>
+          <p>The initial pilot is intended for a small number of organizations with a real public map, a need for stronger label or hosting control, and a willingness to provide product feedback.</p>
+        </div>
+        <div class="pilot-details">
+          <div><strong>Discuss with us</strong><span>A scoped migration, branded style, data import and public embed</span></div>
+          <div><strong>Ideal project</strong><span>Locations, facilities, territories or public information</span></div>
+          <a class="button" href="mailto:opportunities@aellosoftware.com?subject=True%20Canadian%20Maps%20founding%20pilot">Discuss a pilot</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq-section">
+      <div class="container narrow">
+        <div class="section-heading left">
+          <p class="eyebrow">Questions</p>
+          <h2>What teams usually ask first</h2>
+        </div>
+        <div class="faq-list">
+          <details><summary>Is this a replacement for Google Maps?</summary><p>It is a replacement for many branded basemap and location-map use cases. The first product does not attempt to replace global turn-by-turn navigation, live traffic or street-level imagery.</p></details>
+          <details><summary>Can we keep our existing location cards and directions links?</summary><p>Yes. The map component can be replaced independently while the surrounding website, branch pages and external directions links remain unchanged.</p></details>
+          <details><summary>Where does the managed service run?</summary><p>The managed founding preview currently runs in Boston, Massachusetts, United States, and data processed there may be subject to U.S. law. A Canadian managed region is not currently available. With the <a href="/downloads.html">Linux x64 self-hosted preview</a>, you choose and manage your own hosting location.</p></details>
+          <details><summary>Are published maps private?</summary><p>No. Published styles, locations, map assets and previous releases have public URLs. Allowed browser origins are not an access-control boundary for those files. Publish only content you have permission to make public.</p></details>
+          <details><summary>Can we export our work?</summary><p>You can export a published map as style JSON and related assets, including your location data. Keep independent backups of your work during the preview.</p></details>
+          <details><summary>Who decides which place name is correct?</summary><p>The current preview uses the available basemap name fields and language settings. Documented authority profiles, protected-name approvals and provenance workflows are planned, not implemented.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div class="container final-cta-inner">
+        <img src="/assets/icon.svg" alt="" width="82" height="82">
+        <div><p class="eyebrow eyebrow-light">truecanadianmaps.com</p><h2>Own the map. Keep the context.</h2></div>
+        <a class="button button-light" href="https://studio.truecanadianmaps.com/signup">Try the Studio</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand"><img src="/assets/logo-reversed.svg" alt="True Canadian Maps"><p>Customer-controlled interactive mapping infrastructure.</p></div>
+      <div><strong>Product</strong><a href="#product">Platform</a><a href="#naming">Naming governance</a><a href="#deployment">Deployment</a></div>
+      <div><strong>Aello Software</strong><a href="https://aellosoftware.com">Company</a><a href="mailto:security@aellosoftware.com">Report a security issue</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/third-party-notices.txt">Open-source licences</a></div>
+      <div><strong>Explore</strong><a href="https://status.aellosoftware.com">Service status</a><a href="https://studio.truecanadianmaps.com/gallery">Style gallery</a><a href="/downloads.html">Self-host and source</a></div>
+      <div><strong>Domains</strong><span>truecanadianmaps.com</span><span>truecanadamaps.com</span></div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© <span data-year></span> Aello Software. True Canadian Maps founding preview.</span>
+      <span>Independent service; not affiliated with the Government of Canada.</span>
+    </div>
+  </footer>
+</body>
+</html>

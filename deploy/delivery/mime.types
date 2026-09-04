@@ -1,0 +1,5 @@
+types {
+    text/html html htm; text/css css; application/javascript js mjs; application/json json map;
+    application/geo+json geojson; image/png png; image/jpeg jpg jpeg; image/webp webp; image/svg+xml svg;
+    application/x-protobuf pbf; application/octet-stream pmtiles bin; text/plain txt sha256; font/woff2 woff2;
+}

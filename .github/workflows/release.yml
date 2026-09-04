@@ -1,0 +1,68 @@
+name: Linux x64 release candidate
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Pinned release version (must match package.json)
+        required: true
+        default: '0.2.0'
+permissions:
+  contents: write
+  packages: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with: { node-version: '22' }
+      - name: Validate the reviewed snapshot
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          test "$(node -p 'require("./package.json").version')" = "$RELEASE_VERSION"
+          grep -Eq '^[a-f0-9]{40}$' SOURCE_REVISION
+          corepack enable
+          corepack prepare pnpm@11.25.0 --activate
+          pnpm install --frozen-lockfile
+          pnpm --filter @tcm/icons build:manifest
+          pnpm typecheck
+          pnpm lint
+          pnpm test
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build versioned Linux x64 images with provenance
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          mkdir -p release
+          revision=$(cat SOURCE_REVISION)
+          for target in app worker delivery marketing; do
+            image="ghcr.io/aellosoftware/true-canadian-maps-$target:$RELEASE_VERSION"
+            docker buildx build --platform linux/amd64 --build-arg "TCM_VERSION=$revision" \
+              --target "$target" -f deploy/Dockerfile --tag "$image" --push \
+              --provenance=mode=max --sbom=true --metadata-file "release/$target-image.json" .
+          done
+      - name: Package complete installer, source and checksums
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          python3 scripts/public-snapshot.py --revision "$(cat SOURCE_REVISION)" --output "release/true-canadian-maps-$RELEASE_VERSION-source.tar.gz"
+          python3 scripts/bundle-release.py "$RELEASE_VERSION"
+      - name: Stage release for anonymous-access and clean-install checks
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: |
+          gh release create "v$RELEASE_VERSION" --target "$GITHUB_SHA" --draft --prerelease \
+            --title "True Canadian Maps $RELEASE_VERSION — Linux x64 preview" \
+            --notes-file docs/RELEASE_NOTES.md release/*
+      # Publish the draft only after package visibility, anonymous pulls,
+      # a clean Linux install, upgrade/restore and source checks pass.
+      # npm is intentionally gated on verified publisher ownership.

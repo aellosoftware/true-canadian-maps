@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+dist/
+.next/
+out/
+*.tsbuildinfo
+coverage/
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# local data (delivery volume, dev basemap extracts, uploads)
+.data/
+*.pmtiles
+!pipelines/basemap/fixtures/*.pmtiles
+
+# tooling
+.turbo/
+playwright-report/
+test-results/
+output/
+.eslintcache
+__pycache__/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*:Zone.Identifier
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# generated at dev/build time
+apps/studio/public/vendor/
+apps/studio/next-env.d.ts

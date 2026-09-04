@@ -1,0 +1,63 @@
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { defaultConfig } from "@tcm/style-compiler";
+import { createEditorStore, type EditorDoc } from "./store";
+import { startAutosave } from "./autosave";
+
+const makeStore = () => createEditorStore({ orgId: "o", projectId: "p", doc: { config: defaultConfig(), layerOverrides: null }, revision: 1, etag: '"one"' });
+afterEach(() => vi.useRealTimers());
+describe("draft persistence", () => {
+  it("serializes edits during a slow save and acknowledges only matching snapshots", async () => {
+    vi.useFakeTimers();
+    const store = makeStore();
+    const writes: Array<{ doc: EditorDoc; etag: string | null; resolve: (result: { revision: number; etag: string }) => void }> = [];
+    const stop = startAutosave(store, (doc, etag) => new Promise((resolve) => writes.push({ doc, etag, resolve })), 10);
+    store.getState().setLang("fr");
+    await vi.advanceTimersByTimeAsync(10);
+    store.getState().setBase("dark");
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(writes).toHaveLength(1);
+    writes[0]!.resolve({ revision: 2, etag: '"two"' });
+    await vi.advanceTimersByTimeAsync(0);
+    expect(store.getState().saveState).toBe("dirty");
+    await vi.advanceTimersByTimeAsync(10);
+    expect(writes).toHaveLength(2);
+    expect(writes[1]!.etag).toBe('"two"');
+    expect(writes[1]!.doc.config.base).toBe("dark");
+    writes[1]!.resolve({ revision: 3, etag: '"three"' });
+    await vi.advanceTimersByTimeAsync(0);
+    expect(store.getState().saveState).toBe("saved");
+    stop();
+  });
+  it("retains edits after failure and retries only on explicit action", async () => {
+    vi.useFakeTimers();
+    const store = makeStore();
+    const save = vi.fn().mockRejectedValueOnce(new Error("offline")).mockResolvedValue({ revision: 2, etag: '"two"' });
+    const stop = startAutosave(store, save, 10);
+    store.getState().setBase("dark");
+    await vi.advanceTimersByTimeAsync(10);
+    store.getState().setLang("fr");
+    await vi.advanceTimersByTimeAsync(100);
+    expect(save).toHaveBeenCalledTimes(1);
+    expect(store.getState().saveState).toBe("error");
+    store.getState().retrySave();
+    await vi.advanceTimersByTimeAsync(10);
+    expect(save).toHaveBeenCalledTimes(2);
+    expect(store.getState().saveState).toBe("saved");
+    stop();
+  });
+  it("does not auto-overwrite a conflict after further edits or retry", async () => {
+    vi.useFakeTimers();
+    const store = makeStore();
+    const save = vi.fn().mockRejectedValue(Object.assign(new Error("conflict"), { status: 412 }));
+    const stop = startAutosave(store, save, 10);
+    store.getState().setBase("dark");
+    await vi.advanceTimersByTimeAsync(10);
+    store.getState().setLang("fr");
+    store.getState().retrySave();
+    await vi.advanceTimersByTimeAsync(100);
+    expect(save).toHaveBeenCalledTimes(1);
+    expect(store.getState().saveState).toBe("conflict");
+    expect(store.getState().config.base).toBe("dark");
+    stop();
+  });
+});

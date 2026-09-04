@@ -1,0 +1,31 @@
+{
+  "name": "true-canadian-maps",
+  "private": true,
+  "version": "0.2.0",
+  "description": "True Canadian Maps: style, mark up, publish and embed interactive maps. Self-hostable or hosted SaaS.",
+  "packageManager": "pnpm@11.25.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "concurrently -n studio,worker,delivery -c blue,magenta,green \"pnpm --filter @tcm/studio dev\" \"pnpm --filter @tcm/worker dev\" \"pnpm dev:delivery\"",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint",
+    "test": "pnpm -r test",
+    "db:generate": "pnpm --filter @tcm/db generate",
+    "db:migrate": "pnpm --filter @tcm/db migrate",
+    "db:seed": "pnpm --filter @tcm/db seed",
+    "clean": "pnpm -r exec rm -rf dist .next .turbo && rm -rf node_modules",
+    "dev:delivery": "http-server ./.data/delivery -p 8081 --cors -c-1 -s",
+    "smoke:auth": "scripts/smoke-auth.sh",
+    "e2e": "playwright test",
+    "smoke:publish": "scripts/smoke-publish.sh"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "concurrently": "^10.0.5",
+    "http-server": "^14.1.1"
+  },
+  "license": "AGPL-3.0-only"
+}

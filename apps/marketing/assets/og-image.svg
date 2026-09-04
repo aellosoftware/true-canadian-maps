@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102D3C"/>
+      <stop offset="1" stop-color="#194B5B"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="25" flood-color="#081B26" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1090" cy="-10" r="330" fill="#79C7C3" opacity="0.09"/>
+  <circle cx="980" cy="640" r="390" fill="#E23B3B" opacity="0.08"/>
+  <path d="M690 143 C803 85 879 188 985 126 C1073 76 1126 117 1205 84" fill="none" stroke="#79C7C3" stroke-width="18" opacity="0.32"/>
+  <path d="M655 210 C792 141 883 253 1017 183 C1088 145 1148 162 1211 131" fill="none" stroke="#C9EFE9" stroke-width="12" opacity="0.24"/>
+  <path d="M641 505 C759 441 847 542 965 483 C1051 440 1118 466 1214 416" fill="none" stroke="#79C7C3" stroke-width="20" opacity="0.21"/>
+  <g transform="translate(72 72) scale(.28)" filter="url(#shadow)">
+    <rect x="24" y="24" width="464" height="464" rx="112" fill="#F5FAFA"/>
+    <path d="M62 333 C129 282 171 369 238 320 C300 275 342 342 450 282" fill="none" stroke="#356B78" stroke-width="26" stroke-linecap="round"/>
+    <path d="M60 405 C136 350 185 432 259 382 C323 339 367 397 454 350" fill="none" stroke="#79C7C3" stroke-width="18" stroke-linecap="round" opacity="0.8"/>
+    <path d="M58 258 C132 209 184 279 247 240 C315 198 363 250 454 207" fill="none" stroke="#79C7C3" stroke-width="16" stroke-linecap="round" opacity="0.7"/>
+    <path d="M256 66 L341 285 L256 245 L171 285 Z" fill="#E23B3B"/>
+    <path d="M256 245 L304 280 L256 444 L208 280 Z" fill="#102D3C"/>
+    <circle cx="256" cy="256" r="23" fill="#F5FAFA" stroke="#102D3C" stroke-width="10"/>
+  </g>
+  <text x="72" y="285" font-family="Inter, Arial, sans-serif" font-size="78" font-weight="760" letter-spacing="-3" fill="#F5FAFA">True <tspan fill="#FF6767">Canadian</tspan> Maps</text>
+  <text x="75" y="362" font-family="Inter, Arial, sans-serif" font-size="39" font-weight="520" fill="#C9EFE9">Maps on your terms.</text>
+  <text x="75" y="423" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="450" fill="#F5FAFA" opacity="0.82">Managed. Customer-hosted. Open-standard.</text>
+  <rect x="74" y="484" width="362" height="62" rx="31" fill="#E23B3B"/>
+  <text x="111" y="525" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="670" fill="#FFFFFF">truecanadianmaps.com</text>
+</svg>

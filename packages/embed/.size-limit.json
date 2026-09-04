@@ -1,0 +1,4 @@
+[
+  { "path": "dist/embed/v1.js", "limit": "5 KB" },
+  { "path": "dist/embed/v1/*/tcm.js", "limit": "320 KB" }
+]

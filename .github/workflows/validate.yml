@@ -1,0 +1,12 @@
+name: Validate public source
+on: [push, pull_request]
+permissions: { contents: read }
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    container: node:22-bookworm
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with: { persist-credentials: false }
+      - run: corepack enable && corepack prepare pnpm@11.25.0 --activate && pnpm install --frozen-lockfile
+      - run: pnpm --filter @tcm/icons build:manifest && pnpm typecheck && pnpm lint && pnpm test
