@@ -2,11 +2,11 @@
   "files": [
     "LICENSE", "LICENSING.md", "README.md", "THIRD_PARTY_NOTICES.md",
     "package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml", "tsconfig.base.json", "playwright.config.ts", ".dockerignore", ".gitattributes", ".gitignore",
-    ".github/workflows/release.yml", ".github/workflows/validate.yml",
+    ".github/workflows/release.yml", ".github/workflows/validate.yml", ".github/workflows/verify-install.yml",
     "deploy/Dockerfile", "docs/SELF_HOSTING.md", "docs/UPGRADING.md", "docs/ACCOUNT_RECOVERY.md", "docs/RELEASE_NOTES.md",
     "scripts/public-snapshot.py", "scripts/public-source-allowlist.json", "scripts/bundle-release.py", "scripts/collect-licenses.mjs",
     "scripts/generate-demo.ts", "scripts/marketing.playwright.config.ts", "scripts/journey.playwright.config.ts", "scripts/smoke-auth.sh", "scripts/smoke-publish.sh"
   ],
-  "directories": ["apps/studio", "apps/worker", "apps/marketing", "packages", "pipelines/basemap", "deploy/selfhost", "deploy/delivery", "deploy/marketing", "tests/marketing", "tests/journey"],
+  "directories": ["apps/studio", "apps/worker", "apps/marketing", "packages", "pipelines/basemap", "deploy/selfhost", "deploy/delivery", "deploy/marketing", "tests/marketing", "tests/journey", "tests/selfhost"],
   "exclude": ["apps/marketing/README.md", "apps/marketing/assets/live-demo/export/manifest.json", "apps/studio/public/source", "apps/studio/public/vendor", "apps/studio/next-env.d.ts"]
 }

@@ -1,0 +1,33 @@
+name: Verify Linux release installation
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing staged or published version
+        required: true
+        default: '0.2.0'
+permissions:
+  contents: read
+  packages: read
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with: { node-version: '22' }
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Clean install, publish, upgrade and restore the exact release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_VERSION: ${{ inputs.version }}
+          TCM_DISPOSABLE_INSTALL: 'true'
+        run: bash tests/selfhost/verify.sh
+      # Authentication above permits testing a staged candidate. Anonymous pulls
+      # and public release downloads must also pass before announcing distribution.

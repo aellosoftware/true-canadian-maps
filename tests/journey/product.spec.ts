@@ -41,6 +41,7 @@ test("gallery selection, signup, locations, publish, embed, export and recovery"
   await page.getByLabel("Organization name").fill(`Public locations ${info.project.name} ${Date.now()}`);
   await page.getByRole("button", { name: "Create organization", exact: true }).click();
   await expect(page).toHaveURL(/gallery\/true-north\?apply=1/);
+  const basemapLoaded = page.waitForResponse((response) => response.url().includes("/base/") && response.url().endsWith(".pmtiles") && response.status() === 206);
   await page.getByRole("button", { name: "Apply", exact: true }).click();
   await expect(page).toHaveURL(/\/projects\/[^/]+\/style/);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -49,6 +50,7 @@ test("gallery selection, signup, locations, publish, embed, export and recovery"
   const projectId = editorBase.split("/").at(-1)!;
   const apiBase = `/api/v1/orgs/${me.organizations[0].organizationId}/projects/${projectId}`;
   await expect.poll(() => page.evaluate(() => Boolean((window as any).__TCM_EDITOR__?.map.isStyleLoaded()))).toBe(true);
+  await basemapLoaded;
   await page.locator('nav[aria-label="Editor sections"]').getByRole("link", { name: "Markers", exact: true }).click();
   await page.getByRole("button", { name: "Add marker", exact: true }).click();
   await page.locator(".maplibregl-canvas").click({ position: { x: 150, y: 120 } });
@@ -86,8 +88,10 @@ test("gallery selection, signup, locations, publish, embed, export and recovery"
   const snippet = await page.locator("pre code").innerText();
   const embed = await page.context().newPage();
   await embed.goto("http://127.0.0.1:8080/terms.html");
+  const embedBasemapLoaded = embed.waitForResponse((response) => response.url().includes("/base/") && response.url().endsWith(".pmtiles") && response.status() === 206);
   await embed.setContent(`<html><body>${snippet}</body></html>`);
   await expect(embed.locator(".maplibregl-canvas")).toBeVisible();
+  await embedBasemapLoaded;
   await embed.close();
   await page.screenshot({ path: `output/playwright/journey/studio-${info.project.name}.png`, fullPage: true });
   // SMTP is available in this disposable environment without requiring verification.
