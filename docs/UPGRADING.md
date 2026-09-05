@@ -14,6 +14,9 @@ installer/configuration as well as a complete private backup.
 5. Keep the previous images and backup until the new version is accepted. Do not
    prune rollback images or delete old immutable publication/basemap assets.
 
+Version 0.2.1 fixes account-email failure reporting and database readiness during
+first installation. It does not introduce another schema migration.
+
 The 0.2.0 forward migration widens `basemap_versions.size_bytes` to PostgreSQL
 `bigint`. Registration preserves archive sizes above 2 GB. No account schema
 migration or automatic email-verification policy change is introduced.

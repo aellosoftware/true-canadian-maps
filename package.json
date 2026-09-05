@@ -1,7 +1,7 @@
 {
   "name": "true-canadian-maps",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "True Canadian Maps: style, mark up, publish and embed interactive maps. Self-hostable or hosted SaaS.",
   "packageManager": "pnpm@11.25.0",
   "engines": {

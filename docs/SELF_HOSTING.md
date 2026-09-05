@@ -23,8 +23,8 @@ matching checksum line with `sha256sum -c` before extracting it. Keep the versio
 pinned in `.env`; do not use `latest`.
 
 ```sh
-tar -xzf true-canadian-maps-0.2.0-linux-x64.tar.gz
-cd true-canadian-maps-0.2.0-linux-x64
+tar -xzf true-canadian-maps-0.2.1-linux-x64.tar.gz
+cd true-canadian-maps-0.2.1-linux-x64
 ./install.sh configure
 $EDITOR .env
 ./install.sh start

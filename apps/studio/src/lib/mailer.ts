@@ -1,5 +1,6 @@
 import nodemailer, { type Transporter } from "nodemailer";
 import { env } from "./env";
+import { markMailDeliveryFailed } from "./mail-delivery-status";
 
 export interface Mail {
   to: string;
@@ -22,12 +23,14 @@ function getTransporter(): Transporter | null {
  * and SMTP transport; callers surface a recoverable delivery error.
  */
 export async function sendMail(mail: Mail): Promise<void> {
-  const t = getTransporter();
-  if (!t) {
-    throw new Error("Email delivery is not configured. Please try again later.");
+  try {
+    const t = getTransporter();
+    const from = env().SMTP_FROM;
+    if (!t || !from) throw new Error("Email delivery is not configured.");
+    await t.sendMail({ from, ...mail });
   }
-  const from = env().SMTP_FROM;
-  if (!from) throw new Error("Email sender is not configured. Please try again later.");
-  try { await t.sendMail({ from, ...mail }); }
-  catch { throw new Error("Email delivery failed. Please try again later."); }
+  catch {
+    markMailDeliveryFailed();
+    throw new Error("Email delivery failed. Please try again later.");
+  }
 }

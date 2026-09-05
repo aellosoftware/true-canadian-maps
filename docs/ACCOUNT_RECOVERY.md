@@ -27,3 +27,8 @@ verification policy. The existing account schema is unchanged.
 
 For local tests, use a disposable SMTP capture server without outbound delivery.
 Keep its HTTP interface private; captured messages contain usable test links.
+
+An SMTP failure returns a retryable `503 EMAIL_DELIVERY_FAILED` response. The
+request-scoped outcome guard is necessary because Better Auth catches mail
+callback errors internally. It records only a boolean, keeps simultaneous
+requests isolated, and never records message contents or authentication links.

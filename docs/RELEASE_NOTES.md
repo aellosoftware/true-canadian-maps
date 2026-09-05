@@ -1,4 +1,19 @@
-# True Canadian Maps 0.2.0 — Linux x64 preview
+# True Canadian Maps 0.2.1 — Linux x64 preview
+
+This patch makes email delivery failures visible during account recovery. If the
+SMTP provider rejects or cannot deliver a request to its sending service, Studio
+shows a retryable error instead of confirming that the email was sent. Expired
+and reused reset links remain invalid; resetting a password revokes old sessions.
+
+Fresh installations now wait for PostgreSQL's TCP listener before running
+migrations, avoiding a race with its temporary initialization server. There is
+no new database migration in 0.2.1. Back up existing data before upgrading.
+
+The managed-service privacy notice identifies Resend as the account-email
+provider. Self-hosted installations still configure their own SMTP service and
+explicitly enable recovery; SMTP never implicitly requires email verification.
+
+## Included in the preview
 
 The first public self-hosting preview includes Studio, a publication worker,
 static map delivery and the marketing site. Start from nine map styles, add or
